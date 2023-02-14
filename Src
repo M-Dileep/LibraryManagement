@@ -1,1 +1,118 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Book
+{
+	private String Title;
+	private String Author;
+	private String BookNumber;
+	
+	public Book(String Title,String Author,String BookNumber) {
+		this.Title=Title;
+		this.Author=Author;
+		this.BookNumber=BookNumber;
+	}
+	public String gettitle() {
+		return Title;
+	}
+	public String getAuthor() {
+		return Author;
+	}
+	public String getBookNumber() {
+		return BookNumber;
+	}
+}
+class Library{
+	private ArrayList<Book>books;
+	
+	public Library() {
+		books=new ArrayList<>();
+	}
+	public void addBook(Book book) {
+		books.add(book);
+	}
+	public void removeBook(Book book) {
+		books.remove(book);
+	}
+	public ArrayList<Book>searchBook(String keyword){
+		ArrayList<Book>result=new ArrayList<>();
+		for(Book book:books) {
+		if(book.gettitle().contains(keyword) || book.getAuthor().contains(keyword) || book.getBookNumber().contains(keyword));{
+		result.add(book);
+	}
+  }
+	return result;
+}
+	public void printBooks() {
+		System.out.println("Title\t\tAuthor\t\tBookNumber");
+		for(Book book:books) {
+			System.out.println(book.gettitle()+"\t\t"+book.getAuthor()+"\t\t"+book.getBookNumber());
+		}
+	}
+}
+	
+
+public class LibraryManagement {
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		Library li=new Library();
+		
+		while(true) {
+			System.out.println("1. Add a Book");
+			System.out.println("2.  Remove a book");
+			System.out.println("3. Search a book");
+			System.out.println("4. Print all books");
+			System.out.println("5. quit");
+			System.out.println("Enter your choice");
+			
+			int choice = sc.nextInt();
+			switch(choice) {
+			case 1:
+				System.out.println("Enter book Title: ");
+				String title=sc.next();
+				System.out.println("Enter book Author: ");
+				String Author=sc.next();
+				System.out.println("Enter book BookNumber: ");
+				String BookNumber=sc.next();
+				
+				Book a=new Book(title,Author,BookNumber);
+				li.addBook(a);
+				break;
+			case 2:
+				System.out.println("Enter Book BookNumber:");
+				BookNumber=sc.next();
+				ArrayList<Book> result=li.searchBook(BookNumber);
+				if(result.size()>0) {
+					System.out.println("Removed book: "+result.get(0).gettitle());
+					li.removeBook(result.get(0));
+				}
+				
+				break;
+			case 3:
+				System.out.println("Enter Keyword: ");
+				title=sc.next();
+				result=li.searchBook(title);
+				if(result.size()>0) {
+					System.out.println("Search result: ");
+					System.out.println("Title\t\tAuthor\t\tBookNumber");
+					for(Book b:result) {
+						System.out.println(b.gettitle()+"\t\t"+b.getAuthor()+"\t\t"+b.getBookNumber());
+		
+					}
+				}
+					
+				break;
+			case 4:
+				li.printBooks();
+				break;
+			case 5:
+				System.exit(0);
+				break;
+			default:
+				System.out.println("Invalid Choice.");
+				break;		
+				}	
+			}
+		}
+	}
 
